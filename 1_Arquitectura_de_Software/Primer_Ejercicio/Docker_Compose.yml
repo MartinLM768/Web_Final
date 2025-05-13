@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3000:3000"
+  usuarios:
+    build: ./usuarios
+    ports:
+      - "3001:3001"
+  pedidos:
+    build: ./pedidos
+    ports:
+      - "3002:3002"
+  repartidores:
+    build: ./repartidores
+    ports:
+      - "3003:3003"
+  productos:
+    build: ./productos
+    ports:
+      - "3004:3004"
