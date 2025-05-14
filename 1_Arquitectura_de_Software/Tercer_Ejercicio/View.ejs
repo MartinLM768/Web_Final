@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas Colaborativas</title>
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+    <ul>
+        <% tasks.forEach(task => { %>
+            <li><%= task.title %> - <%= task.status %></li>
+        <% }) %>
+    </ul>
+    <form action="/tasks" method="POST">
+        <input type="text" name="title" placeholder="Título de la tarea" required>
+        <textarea name="description" placeholder="Descripción"></textarea>
+        <button type="submit">Crear Tarea</button>
+    </form>
+</body>
+</html>
