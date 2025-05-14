@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrones de Diseño</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .menu {
+            margin-bottom: 20px;
+        }
+        .boton {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 25px;
+        }
+        section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu">
+        <a class="boton" href="#estado">Patrón State</a>
+        <a class="boton" href="#template">Patrón Template Method</a>
+        <a class="boton" href="#mediator">Patrón Mediator</a>
+        <a class="boton" href="#iterator">Patrón Iterator</a>
+        <a class="boton" href="#visitor">Patrón Visitor</a>
+        <a class="boton" href="#memento">Patrón Memento</a>
+    </div>
+
+    <section id="estado">
+        <h2>Patrón State</h2>
+        <pre>
+class Orden {
+    constructor() {
+        this.estado = new Pendiente();
+    }
+
+    setEstado(estado) {
+        this.estado = estado;
+    }
+
+    procesar() {
+        this.estado.procesar(this);
+    }
+}
+
+class Pendiente {
+    procesar(orden) {
+        console.log("Orden en estado pendiente.");
+        orden.setEstado(new Procesando());
+    }
+}
+
+class Procesando {
+    procesar(orden) {
+        console.log("Orden en estado procesando.");
+        orden.setEstado(new Enviada());
+    }
+}
+
+class Enviada {
+    procesar(orden) {
+        console.log("Orden en estado enviada.");
+        orden.setEstado(new Entregada());
+    }
+}
+
+class Entregada {
+    procesar(orden) {
+        console.log("Orden en estado entregada.");
+    }
+}
+        </pre>
+    </section>
+
+    <section id="template">
+        <h2>Patrón Template Method</h2>
+        <pre>
+class TareaAutomatizada {
+    ejecutar() {
+        this.preparar();
+        this.realizar();
+        this.finalizar();
+    }
+
+    preparar() {
+        console.log("Preparando la tarea.");
+    }
+
+    finalizar() {
+        console.log("Finalizando la tarea.");
+    }
+}
+
+class Backup extends TareaAutomatizada {
+    realizar() {
+        console.log("Realizando backup.");
+    }
+}
+
+class Limpieza extends TareaAutomatizada {
+    realizar() {
+        console.log("Realizando limpieza.");
+    }
+}
+        </pre>
+    </section>
+
+    <section id="mediator">
+        <h2>Patrón Mediator</h2>
+        <pre>
+class ChatMediator {
+    constructor() {
+        this.entradaTexto = new EntradaTexto(this);
+        this.botonEnviar = new BotonEnviar(this);
+        this.historial = new Historial(this);
+    }
+
+    enviarMensaje(mensaje) {
+        this.historial.agregarMensaje(mensaje);
+    }
+}
+
+class EntradaTexto {
+    constructor(mediator) {
+        this.mediator = mediator;
+    }
+
+    enviar(mensaje) {
+        this.mediator.enviarMensaje(mensaje);
+    }
+}
+
+class BotonEnviar {
+    constructor(mediator) {
+        this.mediator = mediator;
+    }
+
+    click(mensaje) {
+        this.mediator.enviarMensaje(mensaje);
+    }
+}
+
+class Historial {
+    constructor(mediator) {
+        this.mediator = mediator;
+        this.mensajes = [];
+    }
+
+    agregarMensaje(mensaje) {
+        this.mensajes.push(mensaje);
+        console.log("Mensaje enviado: " + mensaje);
+    }
+}
+        </pre>
+    </section>
+
+    <section id="iterator">
+        <h2>Patrón Iterator</h2>
+        <pre>
+class ColeccionProductos {
+    constructor() {
+        this.productos = [];
+    }
+
+    agregarProducto(producto) {
+        this.productos.push(producto);
+    }
+
+    crearIterator() {
+        return new Iterator(this);
+    }
+}
+
+class Iterator {
+    constructor(coleccion) {
+        this.coleccion = coleccion;
+        this.indice = 0;
+    }
+
+    siguiente() {
+        return this.coleccion.productos[this.indice++];
+    }
+
+    tieneSiguiente() {
+        return this.indice < this.coleccion.productos.length;
+    }
+}
+        </pre>
+    </section>
+
+    <section id="visitor">
+        <h2>Patrón Visitor</h2>
+        <pre>
+class Producto {
+    aceptar(visitor) {}
+}
+
+class Alimento extends Producto {
+    aceptar(visitor) {
+        visitor.visitarAlimento(this);
+    }
+}
+
+class Tecnologia extends Producto {
+    aceptar(visitor) {
+        visitor.visitarTecnologia(this);
+    }
+}
+
+class ImpuestoVisitor {
+    visitarAlimento(alimento) {
+        console.log("Calculando impuestos para alimento.");
+    }
+
+    visitarTecnologia(tecnologia) {
+        console.log("Calculando impuestos para tecnología.");
+    }
+}
+        </pre>
+    </section>
+
+    <section id="memento">
+        <h2>Patrón Memento</h2>
+        <pre>
+class Configuracion {
+    constructor() {
+        this.estado = {};
+    }
+
+    setEstado(estado) {
+        this.estado = estado;
+    }
+
+    crearMemento() {
+        return new Memento(this.estado);
+    }
+
+    restaurar(memento) {
+        this.estado = memento.getEstado();
+    }
+}
+
+class Memento {
+    constructor(estado) {
+        this.estado = estado;
+    }
+
+    getEstado() {
+        return this.estado;
+    }
+}
+        </pre>
+    </section>
+
+</body>
+</html>
