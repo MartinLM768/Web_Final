@@ -1,0 +1,50 @@
+//Arquitectura Cliente-Servidor
+
+1. Cliente (Frontend)
+-Responsabilidad: Interfaz gráfica para que los usuarios (estudiantes, profesores y administradores) interactúen con el sistema.
+-Tecnologías sugeridas:
+    -HTML, CSS, JavaScript: Para la interfaz web.
+    -Frameworks opcionales: React, Angular o Vue.js (si se desea una experiencia más dinámica).
+-Funcionalidades principales:
+    -Estudiantes: Consultar sus notas y calificaciones.
+    -Profesores: Subir y actualizar notas de los estudiantes.
+    -Administradores: Gestionar usuarios, materias y permisos.
+
+2.Servidor (Backend)
+-Responsabilidad: Procesar las solicitudes del cliente, manejar la lógica de negocio y comunicarse con la base de datos.
+-Tecnologías sugeridas:
+    -Node.js con Express: Para manejar las solicitudes HTTP.
+    -Alternativas: Python (Django/Flask), Java (Spring Boot), PHP (Laravel).
+-Endpoints sugeridos:
+    -GET /students/:id/grades: Obtener las notas de un estudiante.
+    -POST /grades: Subir o actualizar notas.
+    -GET /courses: Listar las materias disponibles.
+    -POST /users: Crear nuevos usuarios.
+
+3. Base de Datos
+-Responsabilidad: Almacenar de forma persistente la información de los usuarios, materias y notas.
+-Tecnologías sugeridas:
+    -Relacional (SQL): MySQL, PostgreSQL (ideal para relaciones entre tablas como estudiantes, materias y notas).
+    -Esquema básico:
+        -Tabla students: ID, nombre, correo.
+        -Tabla courses: ID, nombre, profesor.
+        -Tabla grades: ID, estudiante, materia, calificación.
+//Flujo de trabajo
+
+1. Cliente:
+    -El usuario (estudiante, profesor o administrador) interactúa con la interfaz web.
+    -Por ejemplo, un profesor sube las notas de los estudiantes.
+
+2. Servidor:
+    -El cliente envía una solicitud HTTP al servidor (por ejemplo, POST /grades).
+    -El servidor valida los datos, aplica la lógica de negocio y actualiza la base de datos.
+
+3. Base de Datos:
+    -El servidor realiza operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en la base de datos.
+    -Por ejemplo, guarda las notas subidas por el profesor.
+
+4. Respuesta:
+    -El servidor envía una respuesta al cliente (por ejemplo, confirmación de que las notas se guardaron correctamente).
+    -El cliente actualiza la interfaz para reflejar los cambios.
+
+//Incluido con esta explicacion breve se genero un codigo JavaScript como ejemplo de como se aplicaria la arquitectura.
