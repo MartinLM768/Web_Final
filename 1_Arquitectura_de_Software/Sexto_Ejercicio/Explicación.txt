@@ -1,0 +1,33 @@
+//Componentes Principales
+
+1. Núcleo de Negocio (Dominio)
+-Responsabilidad: Contiene la lógica de negocio pura, independiente de cualquier tecnología externa.
+-Ejemplo:
+    -Procesar pedidos.
+    -Calcular precios y descuentos.
+    -Validar inventarios.
+
+2. Puertos
+-Responsabilidad: Definen interfaces que el núcleo de negocio utiliza para interactuar con el mundo exterior.
+-Tipos:
+    -Puertos de Entrada: Interfaces para recibir solicitudes (por ejemplo, desde el frontend o una API REST).
+    -Puertos de Salida: Interfaces para interactuar con servicios externos (por ejemplo, pasarelas de pago o bases de datos).
+
+3. Adaptadores
+-Responsabilidad: Implementan los puertos para conectar el núcleo de negocio con tecnologías específicas.
+-Ejemplo:
+    -Adaptador para una base de datos (MySQL, MongoDB).
+    -Adaptador para una pasarela de pago (Stripe, PayPal).
+    -Adaptador para la interfaz de usuario (API REST).
+
+//Diagrama de la Arquitectura.
+
+          [ Interfaz de Usuario ]
+                  |
+          [ Adaptador de Entrada ]
+                  |
+          [   Núcleo de Negocio   ]
+                  |
+    -------------------------------
+    |                             |
+[ Adaptador de BD ]      [ Adaptador de Pago ]
