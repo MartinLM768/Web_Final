@@ -1,6 +1,6 @@
 from tkinter import Tk
 from element import Element
-from conteiner import Container
+from container import Container
 
 ventana=Tk()
 ventana.title("Interfaz grafica, con patron composite")
